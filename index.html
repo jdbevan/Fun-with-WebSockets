@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Web Sockets FTW</title>
+	<script src="socket.io.js"></script>
+</head>
+<body>
+<a href="http://localhost:8080" onclick="stopit(socket); return false;">STOP IT</a>
+<script>
+var socket = io.connect('http://localhost:8080');
+socket.on('news', function (data) {
+	var e = document.createElement('p');
+	e.appendChild(document.createTextNode(data.hello));
+	document.body.appendChild(e); //writeln("<p>" + data.hello + "</p>");
+	socket.emit("my other event", {my: 'data'});
+});
+function stopit(socket) {
+	socket.emit("stop it", {now: true});
+}
+</script>
+</body>
+</html>
